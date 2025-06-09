@@ -1,8 +1,12 @@
+﻿using BookApi_backend.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine("🔌 Using connection string: " + connectionString);
 
 builder.Services.AddCors(options =>
 {
@@ -23,6 +27,10 @@ builder.Services.AddDbContext<BookContext>(options =>
 
 builder.Services.AddControllers();
 
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,4 +43,10 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseSwagger();
+
+app.UseSwaggerUI();
+
 app.Run();
+
+
