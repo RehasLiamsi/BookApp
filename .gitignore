@@ -22,3 +22,5 @@ BookApi_frontend/.angular/
 # OS files
 .DS_Store
 Thumbs.db
+
+**/appsettings.Development.json
