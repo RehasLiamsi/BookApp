@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -12,6 +14,12 @@ builder.Services.AddCors(options =>
                                 .AllowAnyMethod();
                       });
 });
+
+builder.Services.AddDbContext<BookContext>(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(8, 0, 36))
+        ));
 
 builder.Services.AddControllers();
 
