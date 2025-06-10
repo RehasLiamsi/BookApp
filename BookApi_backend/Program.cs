@@ -5,9 +5,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-Console.WriteLine("🔌 Using connection string: " + connectionString);
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
