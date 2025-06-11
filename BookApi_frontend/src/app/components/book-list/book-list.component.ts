@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 export class BookListComponent implements OnInit {
   books: Book[] = [];
   newBook: Book = { id: 0, title: '', author: '', publishedDate: '' };
+  isEditMode: boolean = false;
 
   constructor(private bookService: BookService) { }
 
@@ -27,11 +28,32 @@ export class BookListComponent implements OnInit {
   addBook(): void {
     this.bookService.addBook(this.newBook).subscribe(() => {
       this.loadBooks();
-      this.newBook = { id: 0, title: '', author: '', publishedDate: '' };
+      this.resetForm();        ;
     });
+  }
+
+  editBook(book: Book): void {
+    this.newBook = { ...book };
+    this.isEditMode = true;
+  }
+
+  updateBook(): void {
+    this.bookService.updateBook(this.newBook).subscribe(() => {
+      this.loadBooks();
+      this.resetForm();
+    });
+  }
+
+  cancelEdit(): void {
+    this.resetForm();
   }
 
   deleteBook(id: number): void {
     this.bookService.deleteBook(id).subscribe(() => this.loadBooks());
+  }
+
+  resetForm(): void {
+    this.newBook = { id: 0, title: '', author: '', publishedDate: '' };
+    this.isEditMode = false;
   }
 }
