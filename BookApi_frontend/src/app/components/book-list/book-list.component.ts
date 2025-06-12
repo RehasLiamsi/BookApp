@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookService, Book } from '../../services/book.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-list',
@@ -15,7 +16,7 @@ export class BookListComponent implements OnInit {
   newBook: Book = { id: 0, title: '', author: '', publishedDate: '' };
   isEditMode: boolean = false;
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadBooks();
@@ -32,9 +33,8 @@ export class BookListComponent implements OnInit {
     });
   }
 
-  editBook(book: Book): void {
-    this.newBook = { ...book };
-    this.isEditMode = true;
+  editBook(id: number): void {
+    this.router.navigate(['/books', id, 'edit']);
   }
 
   updateBook(): void {

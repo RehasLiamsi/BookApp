@@ -1,1 +1,10 @@
-<p>add-edit-book works!</p>
+<h2>{{ isEditMode ? 'Edit Book' : 'Add New Book' }}</h2>
+
+<form (ngSubmit)="save()">
+  <input [(ngModel)]="book.title" name="title" placeholder="Title" required />
+  <input [(ngModel)]="book.author" name="author" placeholder="Author" required />
+  <input [(ngModel)]="book.publishedDate" name="publishedDate" type="date" required />
+
+  <button type="submit">{{ isEditMode ? 'Update' : 'Add' }}</button>
+  <button type="button" (click)="cancel()">Cancel</button>
+</form>
