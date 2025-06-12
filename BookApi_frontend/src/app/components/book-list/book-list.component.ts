@@ -3,13 +3,14 @@ import { BookService, Book } from '../../services/book.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-book-list',
-  templateUrl: './book-list.component.html',
   standalone: true,
-  providers: [BookService],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, RouterModule],
+  templateUrl: './book-list.component.html',
 })
 export class BookListComponent implements OnInit {
   books: Book[] = [];

@@ -5,27 +5,26 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-edit-book',
+  selector: 'app-book-form',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './add-edit-book.component.html',
-  styleUrls: ['./add-edit-book.component.css']
+  templateUrl: './book-form.component.html',
 })
-export class AddEditBookComponent implements OnInit {
+export class BookFormComponent implements OnInit {
   book: Book = { id: 0, title: '', author: '', publishedDate: '' };
-  isEditMode = false;
+  isEditMode: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private bookService: BookService
+    private bookService: BookService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEditMode = true;
-      this.bookService.getBookById(+id).subscribe(book => this.book = book);
+      this.bookService.getBookById(+id).subscribe(b => this.book = b);
     }
   }
 

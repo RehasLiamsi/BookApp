@@ -2,20 +2,8 @@
 
 <a routerLink="/books/new">Add New Book</a>
 
-<h2>{{ isEditMode ? 'Edit Book' : 'Add Book' }}</h2>
-<form (ngSubmit)="isEditMode ? updateBook() : addBook()" #bookForm="ngForm">
-  <input [(ngModel)]="newBook.title" name="title" placeholder="Title" required />
-  <input [(ngModel)]="newBook.author" name="author" placeholder="Author" required />
-  <input [(ngModel)]="newBook.publishedDate" name="publishedDate" type="date" required />
-  <button type="submit">{{ isEditMode ? 'Update' : 'Add' }}</button>
-  <button type="button" *ngIf="isEditMode" (click)="cancelEdit()">Cancel</button>
-</form>
-
-<!-- Book List -->
-<ul>
-  <li *ngFor="let book of books">
-    {{ book.title }} by {{ book.author }} ({{ book.publishedDate | date:'yyyy-MM-dd' }})
-    <button (click)="editBook(book.id)">Edit</button>
-    <button (click)="deleteBook(book.id)">Delete</button>
-  </li>
-</ul>
+<li *ngFor="let book of books">
+  {{ book.title }} by {{ book.author }} (Published: {{ book.publishedDate | date:'yyyy-MM-dd' }})
+  <a [routerLink]="['/books', book.id, 'edit']">Edit</a>
+  <button (click)="deleteBook(book.id)">Delete</button>
+</li>
