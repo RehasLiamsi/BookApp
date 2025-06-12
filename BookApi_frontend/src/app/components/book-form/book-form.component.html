@@ -1,8 +1,16 @@
 <h2>{{ isEditMode ? 'Edit Book' : 'Add Book' }}</h2>
+
 <form (ngSubmit)="save()" #form="ngForm">
-  <input [(ngModel)]="book.title" name="title" required placeholder="Title" />
-  <input [(ngModel)]="book.author" name="author" required placeholder="Author" />
-  <input [(ngModel)]="book.publishedDate" name="publishedDate" required type="date" />
-  <button type="submit">{{ isEditMode ? 'Update' : 'Add' }}</button>
+  <input [(ngModel)]="book.title" name="title" required placeholder="Title" #title="ngModel" />
+  <div *ngIf="title.invalid && title.touched" style="color: red;">Title is required</div>
+
+  <input [(ngModel)]="book.author" name="author" required placeholder="Author" #author="ngModel" />
+  <div *ngIf="author.invalid && author.touched" style="color: red;">Author is required</div>
+
+  <input [(ngModel)]="book.publishedDate" name="publishedDate" type="date" required #date="ngModel" />
+  <div *ngIf="date.invalid && date.touched" style="color: red;">Date is required</div>
+
+  <button type="submit" [disabled]="form.invalid">{{ isEditMode ? 'Update' : 'Add' }}</button>
   <button type="button" (click)="cancel()">Cancel</button>
 </form>
+
