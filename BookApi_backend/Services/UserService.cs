@@ -4,7 +4,7 @@ namespace BookApi_backend.Services
 {
     public class UserService
     {
-        private List<User> _users = new();
+        private static List<User> _users = new();
 
         public User? GetUser(string username, string password)
         {

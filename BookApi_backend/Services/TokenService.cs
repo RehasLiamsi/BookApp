@@ -1,3 +1,10 @@
+using BookApi_backend.Models;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+
 namespace BookApi_backend.Services
 {
     public class TokenService
@@ -16,7 +23,11 @@ namespace BookApi_backend.Services
                 new Claim(ClaimTypes.Name, user.Username)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var rawKey = _config["Jwt:Key"];
+            if (rawKey == null)
+                throw new Exception("JWT key is missing in configuration.");
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(rawKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(

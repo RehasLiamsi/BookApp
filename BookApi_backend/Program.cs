@@ -1,7 +1,11 @@
 ﻿using BookApi_backend.Models;
+using BookApi_backend.Services;
 using Microsoft.EntityFrameworkCore;
-
-var key = builder.Configuration["Jwt:Key"];
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +22,11 @@ builder.Services.AddCors(options =>
                       });
 });
 
+var jwtKey = builder.Configuration["Jwt:Key"];
+if (jwtKey == null)
+    throw new Exception("JWT key is missing in configuration.");
+
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -29,7 +38,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Issuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
     });
 
@@ -59,8 +68,6 @@ app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
-app.UseAuthorization();
-
 app.MapControllers();
 
 app.UseSwagger();
@@ -68,5 +75,3 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.Run();
-
-

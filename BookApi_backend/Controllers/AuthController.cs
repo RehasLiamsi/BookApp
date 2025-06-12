@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BookApi.Models;
-using BookApi.Services;
+using BookApi_backend.Models;
+using BookApi_backend.Services;
 using Microsoft.AspNetCore.Authorization;
 
-namespace BookApi.Controllers
+namespace BookApi_backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
