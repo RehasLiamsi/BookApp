@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 export class BookFormComponent implements OnInit {
   book: Book = { id: 0, title: '', author: '', publishedDate: '' };
   isEditMode: boolean = false;
+  loading = false;
 
   constructor(
     private route: ActivatedRoute,
