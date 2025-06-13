@@ -1,0 +1,9 @@
+<div class="quotes-container">
+  <h2>Mina Citat</h2>
+  <button (click)="goToBooks()">Book View</button>
+  <ul>
+    <li *ngFor="let quote of favoriteQuotes">
+      {{ quote }}
+    </li>
+  </ul>
+</div>

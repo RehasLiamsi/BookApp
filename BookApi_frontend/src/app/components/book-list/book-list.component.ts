@@ -19,6 +19,10 @@ export class BookListComponent implements OnInit {
 
   constructor(private bookService: BookService, private router: Router) { }
 
+  goToQuotes() {
+    this.router.navigate(['/quotes']);
+  }
+
   ngOnInit(): void {
     this.loadBooks();
   }
