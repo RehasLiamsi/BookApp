@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './register.component.html'
 })
 export class RegisterComponent {
-    registerForm: FormGroup;
+  registerForm: FormGroup;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.registerForm = this.fb.group({
@@ -20,10 +20,16 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    this.http.post('http://localhost:5222/api/auth/register', this.registerForm.value)
+    this.http.post('http://localhost:5222/api/auth/register', this.registerForm.value, { responseType: 'text' })
       .subscribe({
-        next: () => alert('Registered successfully'),
-        error: () => alert('Registration failed')
+        next: (res) => {
+          console.log('Response:', res); // Optional debug
+          alert('Registered successfully');
+        },
+        error: (err) => {
+          console.error('Error:', err);
+          alert('Registration failed');
+        }
       });
   }
 }

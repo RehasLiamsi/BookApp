@@ -21,7 +21,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.http.post<{ token: string }>('http://localhost:5000/api/auth/login', this.loginForm.value)
+    this.http.post<{ token: string }>('http://localhost:5222/api/auth/login', this.loginForm.value)
       .subscribe({
         next: res => {
           localStorage.setItem('token', res.token);
