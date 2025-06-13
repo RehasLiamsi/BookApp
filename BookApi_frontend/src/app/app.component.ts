@@ -1,25 +1,22 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, RouterModule],
+  selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  imports: [CommonModule, RouterModule]
 })
 export class AppComponent {
-  constructor(private router: Router) { }
+  title = 'BookApp';
 
-logout() {
-  localStorage.removeItem('token');
-  this.router.navigate(['/login']);
-}
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
 
-isLoggedIn(): boolean {
-  return !!localStorage.getItem('token');
+  logout() {
+    localStorage.removeItem('token');
+    location.reload();
+  }
 }
-}
-

@@ -1,0 +1,10 @@
+<div *ngIf="!isLoggedIn()">
+  <h2>Welcome!</h2>
+  <p>Please login or register to continue.</p>
+  <a routerLink="/login">Login</a> | <a routerLink="/register">Register</a>
+</div>
+
+<div *ngIf="isLoggedIn()">
+  <p>You are already logged in.</p>
+  <a routerLink="/books">Go to Books</a>
+</div>

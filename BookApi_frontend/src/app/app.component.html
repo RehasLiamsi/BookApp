@@ -1,9 +1,4 @@
 <nav>
-  <a routerLink="/books">Books</a>
-  <a routerLink="/login">Login</a>
-  <a routerLink="/register">Register</a>
-
-  <!-- Show logout only when logged in -->
   <button *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
 </nav>
 
