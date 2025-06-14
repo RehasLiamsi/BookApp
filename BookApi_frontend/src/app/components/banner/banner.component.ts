@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
@@ -8,8 +8,32 @@ import { Router, RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   templateUrl: './banner.component.html',
 })
-export class BannerComponent {
+export class BannerComponent implements OnInit {
+  isDarkMode = false;
   constructor(private router: Router) { }
+
+  ngOnInit(): void {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') {
+      this.setDarkMode(true);
+    }
+  }
+
+  toggleTheme(): void {
+    this.isDarkMode = !this.isDarkMode;
+    this.setDarkMode(this.isDarkMode);
+  }
+
+  private setDarkMode(enabled: boolean): void {
+    const body = document.body;
+    if (enabled) {
+      body.classList.add('dark-theme');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      body.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light');
+    }
+  }
 
   logout() {
     localStorage.removeItem('token');

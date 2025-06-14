@@ -4,69 +4,64 @@
       <h2 class="mb-4 text-center">
         {{ isEditMode ? '✏️ Edit Book' : '➕ Add Book' }}
       </h2>
+        <form (ngSubmit)="save()" #form="ngForm" class="p-4 border rounded shadow-sm form-wrapper">
 
-      <form (ngSubmit)="save()" #form="ngForm" class="p-4 border rounded bg-light shadow-sm">
-
-        <!-- Title -->
-        <div class="mb-3">
-          <label for="title" class="form-label">Title</label>
-          <input id="title"
-                 name="title"
-                 class="form-control"
-                 [(ngModel)]="book.title"
-                 required
-                 placeholder="Enter book title"
-                 #title="ngModel" />
-          <div class="invalid-feedback d-block" *ngIf="title.invalid && title.touched">
-            Title is required.
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input id="title"
+                   name="title"
+                   class="form-control"
+                   [(ngModel)]="book.title"
+                   required
+                   placeholder="Enter book title"
+                   #title="ngModel" />
+            <div class="invalid-feedback d-block" *ngIf="title.invalid && title.touched">
+              Title is required.
+            </div>
           </div>
-        </div>
 
-        <!-- Author -->
-        <div class="mb-3">
-          <label for="author" class="form-label">Author</label>
-          <input id="author"
-                 name="author"
-                 class="form-control"
-                 [(ngModel)]="book.author"
-                 required
-                 placeholder="Enter author's name"
-                 #author="ngModel" />
-          <div class="invalid-feedback d-block" *ngIf="author.invalid && author.touched">
-            Author is required.
+          <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input id="author"
+                   name="author"
+                   class="form-control"
+                   [(ngModel)]="book.author"
+                   required
+                   placeholder="Enter author's name"
+                   #author="ngModel" />
+            <div class="invalid-feedback d-block" *ngIf="author.invalid && author.touched">
+              Author is required.
+            </div>
           </div>
-        </div>
 
-        <!-- Published Date -->
-        <div class="mb-4">
-          <label for="publishedDate" class="form-label">Published Date</label>
-          <input id="publishedDate"
-                 name="publishedDate"
-                 type="date"
-                 class="form-control"
-                 [(ngModel)]="book.publishedDate"
-                 required
-                 #date="ngModel" />
-          <div class="invalid-feedback d-block" *ngIf="date.invalid && date.touched">
-            Date is required.
+          <div class="mb-4">
+            <label for="publishedDate" class="form-label">Published Date</label>
+            <input id="publishedDate"
+                   name="publishedDate"
+                   type="date"
+                   class="form-control"
+                   [(ngModel)]="book.publishedDate"
+                   required
+                   #date="ngModel" />
+            <div class="invalid-feedback d-block" *ngIf="date.invalid && date.touched">
+              Date is required.
+            </div>
           </div>
-        </div>
 
-        <!-- Buttons -->
-        <div class="d-flex justify-content-between">
-          <button type="submit"
-                  class="btn btn-primary"
-                  [disabled]="form.invalid || loading">
-            <i class="fas fa-save"></i>
-            {{ loading ? 'Saving...' : (isEditMode ? 'Update' : 'Add') }}
-          </button>
+          <div class="d-flex justify-content-between">
+            <button type="submit"
+                    class="btn btn-primary"
+                    [disabled]="form.invalid || loading">
+              <i class="fas fa-save"></i>
+              {{ loading ? 'Saving...' : (isEditMode ? 'Update' : 'Add') }}
+            </button>
 
-          <button type="button" class="btn btn-outline-secondary" (click)="cancel()">
-            Cancel
-          </button>
-        </div>
+            <button type="button" class="btn btn-outline-secondary" (click)="cancel()">
+              Cancel
+            </button>
+          </div>
 
-      </form>
+        </form>
     </div>
   </div>
 </div>
