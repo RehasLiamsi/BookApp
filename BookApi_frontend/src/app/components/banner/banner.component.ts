@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
+
 
 @Component({
   selector: 'app-banner',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NavbarComponent, ThemeToggleComponent],
   templateUrl: './banner.component.html',
 })
 export class BannerComponent implements OnInit {
@@ -15,40 +18,27 @@ export class BannerComponent implements OnInit {
   ngOnInit(): void {
     const saved = localStorage.getItem('theme');
     if (saved === 'dark') {
-      this.setDarkMode(true);
+      document.documentElement.classList.add('dark');
     }
   }
 
-  toggleTheme(): void {
-    this.isDarkMode = !this.isDarkMode;
-    this.setDarkMode(this.isDarkMode);
-  }
-
-  private setDarkMode(enabled: boolean): void {
-    const body = document.body;
-    if (enabled) {
-      body.classList.add('dark-theme');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      body.classList.remove('dark-theme');
-      localStorage.setItem('theme', 'light');
-    }
-  }
-
-  logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/']);
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
   }
 
   isOnQuotesPage(): boolean {
     return this.router.url === '/quotes';
   }
 
-  get toggleLabel(): string {
-    return this.isOnQuotesPage() ? 'View Books' : 'View Quotes';
+  private setDarkMode(enabled: boolean): void {
+    const html = document.documentElement;
+    if (enabled) {
+      html.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      html.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
   }
 
-  get toggleLink(): string {
-    return this.isOnQuotesPage() ? '/books' : '/quotes';
-  }
 }
