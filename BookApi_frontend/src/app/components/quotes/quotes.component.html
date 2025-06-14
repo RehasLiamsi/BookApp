@@ -1,9 +1,14 @@
-<div class="quotes-container">
-  <h2>Mina Citat</h2>
-  <button (click)="goToBooks()">Book View</button>
-  <ul>
-    <li *ngFor="let quote of favoriteQuotes">
-      {{ quote }}
+<div class="container mt-5">
+  <div class="text-center mb-4">
+    <h2> My Favorite Quotes</h2>
+    <button (click)="goToBooks()" class="btn btn-outline-primary mt-3">
+      <i class="fas fa-book"></i> Back to Book View
+    </button>
+  </div>
+
+  <ul class="list-group">
+    <li *ngFor="let quote of favoriteQuotes" class="list-group-item">
+      <i class= "text-muted me-2"></i> {{ quote }}
     </li>
   </ul>
 </div>

@@ -1,37 +1,72 @@
-<div class="container mt-4">
-  <h2>{{ isEditMode ? '✏️ Edit Book' : '➕ Add Book' }}</h2>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="mb-4 text-center">
+        {{ isEditMode ? '✏️ Edit Book' : '➕ Add Book' }}
+      </h2>
 
-  <form (ngSubmit)="save()" #form="ngForm" class="mt-3">
+      <form (ngSubmit)="save()" #form="ngForm" class="p-4 border rounded bg-light shadow-sm">
 
-    <div class="mb-3">
-      <label class="form-label">Title</label>
-      <input class="form-control" [(ngModel)]="book.title" name="title" required placeholder="Title" #title="ngModel" />
-      <div class="text-danger" *ngIf="title.invalid && title.touched" style="color: red;">Title is required</div>
+        <!-- Title -->
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input id="title"
+                 name="title"
+                 class="form-control"
+                 [(ngModel)]="book.title"
+                 required
+                 placeholder="Enter book title"
+                 #title="ngModel" />
+          <div class="invalid-feedback d-block" *ngIf="title.invalid && title.touched">
+            Title is required.
+          </div>
+        </div>
+
+        <!-- Author -->
+        <div class="mb-3">
+          <label for="author" class="form-label">Author</label>
+          <input id="author"
+                 name="author"
+                 class="form-control"
+                 [(ngModel)]="book.author"
+                 required
+                 placeholder="Enter author's name"
+                 #author="ngModel" />
+          <div class="invalid-feedback d-block" *ngIf="author.invalid && author.touched">
+            Author is required.
+          </div>
+        </div>
+
+        <!-- Published Date -->
+        <div class="mb-4">
+          <label for="publishedDate" class="form-label">Published Date</label>
+          <input id="publishedDate"
+                 name="publishedDate"
+                 type="date"
+                 class="form-control"
+                 [(ngModel)]="book.publishedDate"
+                 required
+                 #date="ngModel" />
+          <div class="invalid-feedback d-block" *ngIf="date.invalid && date.touched">
+            Date is required.
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between">
+          <button type="submit"
+                  class="btn btn-primary"
+                  [disabled]="form.invalid || loading">
+            <i class="fas fa-save"></i>
+            {{ loading ? 'Saving...' : (isEditMode ? 'Update' : 'Add') }}
+          </button>
+
+          <button type="button" class="btn btn-outline-secondary" (click)="cancel()">
+            Cancel
+          </button>
+        </div>
+
+      </form>
     </div>
-
-    <div class="mb-3">
-      <label class="form-label">Author</label>
-      <input class="form-control" [(ngModel)]="book.author" name="author" required placeholder="Author" #author="ngModel" />
-      <div class="text-danger" *ngIf="author.invalid && author.touched" style="color: red;">Author is required</div>
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">Published Date</label>
-      <input class="form-control" [(ngModel)]="book.publishedDate" name="publishedDate" type="date" required #date="ngModel" />
-      <div class="text-danger" *ngIf="date.invalid && date.touched" style="color: red;">Date is required</div>
-    </div>
-
-    <button type="submit"
-            class="btn btn-primary me-2"
-            [disabled]="form.invalid || loading">
-      {{ loading ? 'Saving...' : (isEditMode ? '💾 Update' : '➕ Add') }}
-    </button>
-
-    <button type="button"
-            class="btn btn-outline-secondary"
-            (click)="cancel()">
-      Cancel
-    </button>
-
-  </form>
+  </div>
 </div>

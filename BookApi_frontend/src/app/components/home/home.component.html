@@ -1,10 +1,19 @@
-<div *ngIf="!isLoggedIn()">
-  <h2>Welcome!</h2>
-  <p>Please login or register to continue.</p>
-  <a routerLink="/login">Login</a> | <a routerLink="/register">Register</a>
-</div>
+<div class="container mt-5">
+  <div *ngIf="!isLoggedIn()" class="text-center">
+    <h2 class="mb-3">Welcome To Your Personal Library!</h2>
+    <p class="lead mb-4">Please log in or register to continue.</p>
+    <a routerLink="/login" class="btn btn-primary me-2">
+      <i class="fas fa-sign-in-alt"></i> Login
+    </a>
+    <a routerLink="/register" class="btn btn-outline-secondary">
+      <i class="fas fa-user-plus"></i> Register
+    </a>
+  </div>
 
-<div *ngIf="isLoggedIn()">
-  <p>You are already logged in.</p>
-  <a routerLink="/books">Go to Books</a>
+  <div *ngIf="isLoggedIn()" class="text-center">
+    <p class="lead mb-3">You are already logged in.</p>
+    <a routerLink="/books" class="btn btn-success">
+      <i class="fas fa-book"></i> Go to Books
+    </a>
+  </div>
 </div>

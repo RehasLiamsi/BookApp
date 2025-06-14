@@ -1,10 +1,72 @@
-<h2>{{ isEditMode ? 'Edit Book' : 'Add New Book' }}</h2>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="mb-4 text-center">
+        {{ isEditMode ? '✏️ Edit Book' : '➕ Add New Book' }}
+      </h2>
 
-<form (ngSubmit)="save()">
-  <input [(ngModel)]="book.title" name="title" placeholder="Title" required />
-  <input [(ngModel)]="book.author" name="author" placeholder="Author" required />
-  <input [(ngModel)]="book.publishedDate" name="publishedDate" type="date" required />
+      <form (ngSubmit)="save()" #form="ngForm" class="p-4 border rounded bg-light shadow-sm">
 
-  <button type="submit">{{ isEditMode ? 'Update' : 'Add' }}</button>
-  <button type="button" (click)="cancel()">Cancel</button>
-</form>
+        <!-- Title -->
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input id="title"
+                 name="title"
+                 class="form-control"
+                 [(ngModel)]="book.title"
+                 required
+                 placeholder="Enter book title"
+                 #title="ngModel" />
+          <div class="invalid-feedback d-block" *ngIf="title.invalid && title.touched">
+            Title is required.
+          </div>
+        </div>
+
+        <!-- Author -->
+        <div class="mb-3">
+          <label for="author" class="form-label">Author</label>
+          <input id="author"
+                 name="author"
+                 class="form-control"
+                 [(ngModel)]="book.author"
+                 required
+                 placeholder="Enter author's name"
+                 #author="ngModel" />
+          <div class="invalid-feedback d-block" *ngIf="author.invalid && author.touched">
+            Author is required.
+          </div>
+        </div>
+
+        <!-- Published Date -->
+        <div class="mb-4">
+          <label for="publishedDate" class="form-label">Published Date</label>
+          <input id="publishedDate"
+                 name="publishedDate"
+                 type="date"
+                 class="form-control"
+                 [(ngModel)]="book.publishedDate"
+                 required
+                 #date="ngModel" />
+          <div class="invalid-feedback d-block" *ngIf="date.invalid && date.touched">
+            Date is required.
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between">
+          <button type="submit"
+                  class="btn btn-primary"
+                  [disabled]="form.invalid">
+            <i class="fas fa-save"></i>
+            {{ isEditMode ? 'Update' : 'Add' }}
+          </button>
+
+          <button type="button" class="btn btn-outline-secondary" (click)="cancel()">
+            Cancel
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
