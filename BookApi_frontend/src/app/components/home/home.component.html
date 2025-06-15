@@ -1,12 +1,12 @@
 <div class="container d-flex align-items-center justify-content-center vh-100">
   <div class="w-100" style="max-width: 600px;">
-    <div class="bg-white bg-opacity-75 p-5 rounded-4 shadow-lg border border-light" style="backdrop-filter: blur(10px);">
+    <div class="p-5 rounded-4 shadow-lg border border-light form-wrapper card" style="backdrop-filter: blur(10px);">
       <h2 class="text-center mb-4 text-gradient fw-bold">
         <i class="fas fa-book-reader me-2"></i>Welcome To Your Personal Library!
       </h2>
 
       <ng-container *ngIf="!isLoggedIn(); else loggedIn">
-        <p class="text-center text-muted mb-4">
+        <p class="text-center mb-4">
           Please log in or register to manage your book collection.
         </p>
         <div class="d-flex justify-content-center gap-3">
