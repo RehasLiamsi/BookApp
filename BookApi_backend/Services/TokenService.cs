@@ -1,6 +1,5 @@
 using BookApi_backend.Models;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -9,11 +8,13 @@ namespace BookApi_backend.Services
 {
     public class TokenService
     {
-        private readonly IConfiguration _config;
+        private readonly string _jwtKey;
+        private readonly string _issuer;
 
-        public TokenService(IConfiguration config)
+        public TokenService(string jwtKey, string issuer)
         {
-            _config = config;
+            _jwtKey = jwtKey;
+            _issuer = issuer;
         }
 
         public string CreateToken(User user)
@@ -23,16 +24,15 @@ namespace BookApi_backend.Services
                 new Claim(ClaimTypes.Name, user.Username)
             };
 
-            var rawKey = _config["Jwt:Key"];
-            if (rawKey == null)
+            if (string.IsNullOrEmpty(_jwtKey))
                 throw new Exception("JWT key is missing in configuration.");
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(rawKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"],
-                audience: _config["Jwt:Issuer"],
+                issuer: _issuer,
+                audience: _issuer,
                 claims: claims,
                 expires: DateTime.Now.AddHours(1),
                 signingCredentials: creds);

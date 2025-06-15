@@ -22,9 +22,9 @@ builder.Services.AddCors(options =>
                       });
 });
 
-var jwtKey = builder.Configuration["Jwt:Key"];
-if (jwtKey == null)
-    throw new Exception("JWT key is missing in configuration.");
+var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET");
+if (string.IsNullOrEmpty(jwtKey))
+    throw new Exception("JWT_SECRET environment variable is missing.");
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -56,11 +56,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<UserService>();
 
-builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<TokenService>(_ =>
+    new TokenService(jwtKey, builder.Configuration["Jwt:Issuer"]));
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
 
