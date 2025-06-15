@@ -1,11 +1,14 @@
-<div class="container mt-5">
-  <div class="text-center mb-4">
-    <h2> My Favorite Quotes</h2>
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="w-100" style="max-width: 700px;">
+    <div class="bg-white bg-opacity-75 p-5 rounded-4 shadow-lg border border-light" style="backdrop-filter: blur(10px);">
+      <div class="text-center mb-4">
+        <h2 class="text-gradient fw-bold"><i class="fas fa-quote-left me-2"></i>My Favorite Quotes</h2>
+      </div>
+      <ul class="list-group">
+        <li *ngFor="let quote of favoriteQuotes" class="list-group-item">
+          <i class="text-muted me-2 fas fa-star"></i> {{ quote }}
+        </li>
+      </ul>
+    </div>
   </div>
-
-  <ul class="list-group">
-    <li *ngFor="let quote of favoriteQuotes" class="list-group-item">
-      <i class= "text-muted me-2"></i> {{ quote }}
-    </li>
-  </ul>
 </div>

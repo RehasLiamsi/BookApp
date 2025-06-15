@@ -1,16 +1,16 @@
   <ul class="navbar-nav ms-auto me-2 d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-3 gap-lg-2">
     <li class="nav-item">
-      <a class="btn btn-outline-light" [routerLink]="toggleLink">
+      <a class="btn btn-outline-light rounded-pill shadow-sm px-3" [routerLink]="toggleLink">
         {{ toggleLabel }}
       </a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-outline-light" routerLink="/books/new">
+      <a class="btn btn-outline-light rounded-pill shadow-sm px-3" routerLink="/books/new">
         <i class="fas fa-plus"></i> Add Book
       </a>
     </li>
     <li class="nav-item">
-      <button class="btn btn-outline-danger" (click)="logout()">
+      <button class="btn btn-outline-danger rounded-pill shadow-sm px-3" (click)="logout()">
         <i class="fas fa-sign-out-alt"></i> Logout
       </button>
     </li>
