@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   standalone: true,
@@ -25,15 +26,13 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    this.http.post('http://localhost:5222/api/auth/register', this.registerForm.value, { responseType: 'text' })
+    this.http.post(`${environment.apiUrl}/auth/register`, this.registerForm.value, { responseType: 'text' })
       .subscribe({
         next: (res) => {
-          console.log('Response:', res); // Optional debug
           alert('Registered successfully');
           this.router.navigate(['']);
         },
         error: (err) => {
-          console.error('Error:', err);
           alert('Registration failed');
         }
       });

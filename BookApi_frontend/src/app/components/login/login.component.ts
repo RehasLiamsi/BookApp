@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 @Component({
   standalone: true,
@@ -21,7 +22,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.http.post<{ token: string }>('http://localhost:5222/api/auth/login', this.loginForm.value)
+    this.http.post<{ token: string }>(`${environment.apiUrl}/auth/login`, this.loginForm.value)
       .subscribe({
         next: res => {
           localStorage.setItem('token', res.token);
