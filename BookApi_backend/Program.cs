@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
                       });
 });
 
-var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET");
+var jwtKey = "YourVeryStrongSecretKeyWithMoreThan32Chars!";
 if (string.IsNullOrEmpty(jwtKey))
     throw new Exception("JWT_SECRET environment variable is missing.");
 
