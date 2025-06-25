@@ -60,6 +60,24 @@ builder.Services.AddScoped<TokenService>(_ =>
     new TokenService(jwtKey, builder.Configuration["Jwt:Issuer"]));
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var dbContext = services.GetRequiredService<BookContext>();
+
+        // Check and apply any pending migrations
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        // Log and handle exceptions
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while applying the database migrations.");
+        throw; // optionally rethrow to stop app if migration fails
+    }
+}
 
 app.UseHttpsRedirection();
 
